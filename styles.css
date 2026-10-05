@@ -935,7 +935,23 @@ textarea.field { min-height: 116px; }
 
 @media (max-width: 720px) {
   .container { padding-left: 16px; padding-right: 16px; }
-  .header { padding-top: 18px; padding-bottom: 18px; flex-wrap: nowrap; }
+  /* Sticky glass bar on phones. Mobile Safari always lets the page scroll under its
+     status-bar strip; with a fixed bar at the top the strip takes the bar's colour
+     and content slides under a proper header instead of a flat band. */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: nowrap;
+    background: rgba(12, 28, 16, 0.72);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+  }
+  /* anchors land below the sticky bar */
+  main section[id] { scroll-margin-top: 76px; }
   .header .nav, .header .lang, .header .city { display: none; }
   .header .brand { display: flex; }
   .burger { display: flex; }

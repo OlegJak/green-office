@@ -25,6 +25,15 @@ const cartEntries = () => Object.entries(cartState).map(([id, q]) => [plantById(
 const cartCount = () => Object.values(cartState).reduce((s, q) => s + q, 0);
 const cartTotal = () => cartEntries().reduce((s, [p, q]) => s + p.price * q, 0);
 
+// Catalog prices already include Estonian VAT (24%). Split a gross amount into net + VAT,
+// working in cents so that net + VAT always adds up to the gross total exactly.
+const VAT_RATE = 0.24;
+function vatSplit(gross) {
+  const grossCents = Math.round(gross * 100);
+  const netCents = Math.round(grossCents / (1 + VAT_RATE));
+  return { net: netCents / 100, vat: (grossCents - netCents) / 100, gross: grossCents / 100 };
+}
+
 function cartSet(id, q) {
   q = Math.max(0, Math.min(99, q));
   if (q > 0) cartState[id] = q;

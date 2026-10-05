@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/bg.jpg">
-  <link rel="stylesheet" href="styles.css?v=2026100505">
+  <link rel="stylesheet" href="styles.css?v=2026100506">
 </head>
 <body data-title="meta.cartTitle" data-desc="meta.desc">
   <div class="bg" aria-hidden="true"></div>
@@ -59,9 +59,10 @@
       <aside class="checkout glass">
         <h2 data-i18n="cart.summary">Your order</h2>
         <dl class="totals">
-          <div><dt data-i18n="cart.subtotal">Plants</dt><dd id="subtotal"></dd></div>
+          <div><dt data-i18n="cart.net">Subtotal excl. VAT</dt><dd id="net"></dd></div>
+          <div><dt data-i18n="cart.vat">VAT 24%</dt><dd id="vat"></dd></div>
           <div><dt data-i18n="cart.delivery">Delivery in Estonia</dt><dd class="accent" data-i18n="cart.free">Free</dd></div>
-          <div class="totals__sum"><dt data-i18n="cart.total">Total</dt><dd id="total"></dd></div>
+          <div class="totals__sum"><dt data-i18n="cart.total">Total incl. VAT</dt><dd id="total"></dd></div>
         </dl>
 
         <h3 class="checkout__title" data-i18n="cart.checkout">Your details</h3>
@@ -113,9 +114,9 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/data.js?v=2026100505"></script>
-  <script src="js/i18n.js?v=2026100505"></script>
-  <script src="js/common.js?v=2026100505"></script>
-  <script src="js/cart.js?v=2026100505"></script>
+  <script src="js/data.js?v=2026100506"></script>
+  <script src="js/i18n.js?v=2026100506"></script>
+  <script src="js/common.js?v=2026100506"></script>
+  <script src="js/cart.js?v=2026100506"></script>
 </body>
 </html>

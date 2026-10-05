@@ -111,10 +111,11 @@ const STRINGS = {
     "cart.each": "{price} / шт.",
     "cart.remove": "Удалить: {name}",
     "cart.summary": "Ваш заказ",
-    "cart.subtotal": "Растения",
+    "cart.net": "Сумма без НДС",
+    "cart.vat": "НДС 24%",
     "cart.delivery": "Доставка по Эстонии",
     "cart.free": "Бесплатно",
-    "cart.total": "Итого",
+    "cart.total": "Итого с НДС",
     "cart.checkout": "Данные для заказа",
     "cart.submit": "Оформить заказ",
     "cart.error": "Заполните имя, телефон и адрес доставки",
@@ -235,10 +236,11 @@ const STRINGS = {
     "cart.each": "{price} / tk",
     "cart.remove": "Eemalda: {name}",
     "cart.summary": "Teie tellimus",
-    "cart.subtotal": "Taimed",
+    "cart.net": "Summa ilma käibemaksuta",
+    "cart.vat": "Käibemaks 24%",
     "cart.delivery": "Transport üle Eesti",
     "cart.free": "Tasuta",
-    "cart.total": "Kokku",
+    "cart.total": "Kokku koos käibemaksuga",
     "cart.checkout": "Tellija andmed",
     "cart.submit": "Vormista tellimus",
     "cart.error": "Täitke nimi, telefon ja tarneaadress",
@@ -359,10 +361,11 @@ const STRINGS = {
     "cart.each": "{price} each",
     "cart.remove": "Remove: {name}",
     "cart.summary": "Your order",
-    "cart.subtotal": "Plants",
+    "cart.net": "Subtotal excl. VAT",
+    "cart.vat": "VAT 24%",
     "cart.delivery": "Delivery in Estonia",
     "cart.free": "Free",
-    "cart.total": "Total",
+    "cart.total": "Total incl. VAT",
     "cart.checkout": "Your details",
     "cart.submit": "Place order",
     "cart.error": "Please fill in your name, phone and delivery address",
@@ -406,6 +409,10 @@ const pt = (plant) => plant.text[lang];
 
 const formatPrice = (n) =>
   new Intl.NumberFormat(LOCALES[lang], { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(n);
+
+// Always with cents: used for the VAT breakdown in the cart
+const formatMoney = (n) =>
+  new Intl.NumberFormat(LOCALES[lang], { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 
 function applyI18n(root = document) {
   root.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = t(el.dataset.i18n); });

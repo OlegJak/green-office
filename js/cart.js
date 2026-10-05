@@ -46,8 +46,11 @@ function render() {
     </li>`;
   }).join("");
 
-  document.getElementById("subtotal").textContent = formatPrice(cartTotal());
-  document.getElementById("total").textContent = formatPrice(cartTotal());
+  // catalog prices include VAT: show the net amount and the 24% VAT that make up the total
+  const { net, vat, gross } = vatSplit(cartTotal());
+  document.getElementById("net").textContent = formatMoney(net);
+  document.getElementById("vat").textContent = formatMoney(vat);
+  document.getElementById("total").textContent = formatMoney(gross);
 
   // up to 4 plants that are not in the cart yet, styled like the catalog cards
   const ideas = PLANTS.filter((p) => !cartQty(p.id)).slice(0, 4);

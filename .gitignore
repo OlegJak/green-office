@@ -1,0 +1,9 @@
+# local tooling
+.claude/
+
+# archive of the original (uncropped) photos, not used by the site
+photos-originals.zip
+
+# OS junk
+.DS_Store
+Thumbs.db

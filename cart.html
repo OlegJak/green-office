@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart — Green Office</title>
+  <meta name="description" content="Turnkey office greening: live plants, green walls and care. 10 years on the market, 500+ projects.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0c1a0e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/bg.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-title="meta.cartTitle" data-desc="meta.desc">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="bg-blur" aria-hidden="true"></div>
+
+  <header class="header container">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14Z"/><path d="M5 19 13 11"/></svg>
+      <span data-i18n="brand">Green Office</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html#about" data-i18n="nav.about">About</a>
+      <a href="index.html#why" data-i18n="nav.why">Why us</a>
+      <a href="index.html#catalog" data-i18n="nav.catalog">Catalog</a>
+      <a href="index.html#contacts" data-i18n="nav.contacts">Contacts</a>
+    </nav>
+    <div class="header__right">
+      <div class="lang" role="group" data-i18n-attr="aria-label:header.lang">
+        <button type="button" data-lang="en" lang="en">EN</button>
+        <button type="button" data-lang="et" lang="et">ET</button>
+        <button type="button" data-lang="ru" lang="ru">RU</button>
+      </div>
+      <button class="city" type="button" data-i18n="header.region">Estonia</button>
+      <a class="cart is-current" href="cart.html" aria-current="page" data-i18n-attr="aria-label:header.cart">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5h19l-1.9 9.1a2 2 0 0 1-2 1.6H6.4a2 2 0 0 1-2-1.6L2.5 9.5Z"/><path d="M7.5 9.5 11 4M16.5 9.5 13 4"/><path d="M9 13.5v3M12 13.5v3M15 13.5v3"/></svg>
+        <span class="cart__count" hidden>0</span>
+      </a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" data-i18n-attr="aria-label:menu.open">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="cartpage container">
+    <a class="back-link" href="index.html#catalog" data-i18n="cart.back">← Continue shopping</a>
+    <div class="cartpage__head">
+      <h1 data-i18n="cart.title">Cart</h1>
+      <span class="cartpage__count muted" id="cartCountLabel"></span>
+    </div>
+
+    <!-- Filled cart -->
+    <div class="cartpage__grid" id="cartFull" hidden>
+      <ul class="cart-list" id="cartList"></ul>
+
+      <aside class="checkout glass">
+        <h2 data-i18n="cart.summary">Your order</h2>
+        <dl class="totals">
+          <div><dt data-i18n="cart.subtotal">Plants</dt><dd id="subtotal"></dd></div>
+          <div><dt data-i18n="cart.delivery">Delivery in Estonia</dt><dd class="accent" data-i18n="cart.free">Free</dd></div>
+          <div class="totals__sum"><dt data-i18n="cart.total">Total</dt><dd id="total"></dd></div>
+        </dl>
+
+        <h3 class="checkout__title" data-i18n="cart.checkout">Your details</h3>
+        <form class="form form--compact" id="orderForm" novalidate>
+          <input class="field" name="name" type="text" data-i18n-attr="placeholder:form.name" autocomplete="name" required>
+          <input class="field" name="phone" type="tel" data-i18n-attr="placeholder:form.phone" autocomplete="tel" required>
+          <input class="field" name="email" type="email" data-i18n-attr="placeholder:form.email" autocomplete="email">
+          <input class="field" name="company" type="text" data-i18n-attr="placeholder:form.company" autocomplete="organization">
+          <input class="field" name="address" type="text" data-i18n-attr="placeholder:form.address" autocomplete="street-address" required>
+          <textarea class="field" name="comment" rows="2" data-i18n-attr="placeholder:form.comment"></textarea>
+          <button class="btn btn--light" type="submit" data-i18n="cart.submit">Place order</button>
+          <small data-i18n="form.consent">By clicking the button, I agree to the processing of my data</small>
+          <p class="form__status" role="status"></p>
+        </form>
+      </aside>
+    </div>
+
+    <!-- Empty cart -->
+    <div class="cart-state glass" id="cartEmpty" hidden>
+      <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5h19l-1.9 9.1a2 2 0 0 1-2 1.6H6.4a2 2 0 0 1-2-1.6L2.5 9.5Z"/><path d="M7.5 9.5 11 4M16.5 9.5 13 4"/></svg>
+      <h2 data-i18n="cart.empty.title">Your cart is empty</h2>
+      <p class="muted" data-i18n="cart.empty.text">Browse the catalog for the most popular office plants.</p>
+      <a class="btn btn--light" href="index.html#catalog" data-i18n="cart.empty.cta">Open catalog</a>
+    </div>
+
+    <!-- Order placed -->
+    <div class="cart-state glass" id="cartDone" hidden>
+      <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.5 3 3 6-6.5"/></svg>
+      <h2 data-i18n="cart.done.title">Thank you for your order!</h2>
+      <p class="muted" id="doneText"></p>
+      <a class="btn btn--light" href="index.html" data-i18n="cart.done.cta">Back to home</a>
+    </div>
+
+    <!-- Suggestions -->
+    <section class="suggest" id="suggest" hidden>
+      <h2 data-i18n="cart.suggest">You may also like</h2>
+      <div class="suggest__grid" id="suggestGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <nav class="nav">
+      <a href="index.html#about" data-i18n="footer.about">About</a>
+      <a href="index.html#catalog" data-i18n="footer.assortment">Assortment</a>
+      <a href="cart.html" data-i18n="footer.order">Order</a>
+      <a href="index.html#contacts" data-i18n="footer.contacts">Contacts</a>
+    </nav>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+</html>

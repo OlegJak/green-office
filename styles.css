@@ -960,6 +960,7 @@ textarea.field { min-height: 116px; }
   .plant__tag { top: 10px; left: 10px; font-size: 11px; }
   .plant__add { width: 100%; height: 40px; border-radius: 12px; margin-top: 6px; }
   .contact { gap: 30px; padding-bottom: 70px; }
+  .cart-summary { max-width: none; }
   .video__play { width: 72px; height: 72px; border-width: 3px; }
   .header__right { gap: 16px; }
   .cartpage { padding-bottom: 70px; }

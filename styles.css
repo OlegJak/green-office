@@ -699,7 +699,9 @@ body.no-scroll { overflow: hidden; }
 @media (max-width: 760px) {
   .pd { width: calc(100% - 24px); max-height: calc(100dvh - 24px); margin: auto; }
   .pd[open] { animation-name: pd-up; }
-  .pd__panel { grid-template-columns: 1fr; max-height: calc(100dvh - 24px); border-radius: 24px; }
+  /* plain block flow, not grid: WebKit sizes a grid row holding an aspect-ratio box as ~0,
+     so the text slid up under the photo on iPhone */
+  .pd__panel { display: block; max-height: calc(100dvh - 24px); border-radius: 24px; }
   /* square photo: the whole plant and pot fit the frame */
   .pd__media { height: auto; min-height: 0; aspect-ratio: 1 / 1; border-radius: 24px 24px 0 0; }
   .pd__img { object-position: 50% 50%; }

@@ -1012,3 +1012,21 @@ textarea.field { min-height: 116px; }
   .plants:not(.is-filtered) .plant--featured { grid-column: auto; grid-row: auto; }
   .plants:not(.is-filtered) .plant--featured .plant__img { aspect-ratio: 1122 / 1402; height: auto; flex: none; }
 }
+
+/* ---------- Touch screens ----------
+   Mobile Safari keeps :hover "stuck" on the element you tapped. Hover lifts and zooms
+   then fire on tap and stay: e.g. the full-width cart button scaled to 108% and ate the
+   card's side padding. On devices without a real hover only colour feedback remains. */
+@media (hover: none) {
+  .btn:hover,
+  .reason:hover,
+  .plant:hover,
+  .mini:hover,
+  .plant__add:hover,
+  .mini__add:hover,
+  .plant:hover .plant__img,
+  .video:hover img { transform: none; }
+  .plant:hover { box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35); }
+  .mini:hover { box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3); }
+  .video__play:hover { transform: translate(-50%, -50%); }
+}

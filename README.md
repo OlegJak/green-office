@@ -21,7 +21,7 @@ and open http://localhost:5173.
 
 ## Updating the live site
 
-Every push to `main` is published by GitHub Pages within a minute or two. Pages lets browsers cache files for 10 minutes, so CSS and JS are linked with a version (`styles.css?v=2026100504`). When you change `styles.css` or anything in `js/`, bump that number in both `index.html` and `cart.html` so visitors get the new files right away.
+Every push to `main` is published by GitHub Pages within a minute or two. Pages lets browsers cache files for 10 minutes, so CSS and JS are linked with a version (`styles.css?v=2026100505`). When you change `styles.css` or anything in `js/`, bump that number in both `index.html` and `cart.html` so visitors get the new files right away.
 
 ## Structure
 

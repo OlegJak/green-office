@@ -110,14 +110,73 @@ function openPlant(i) {
 
 const step = (dir) => openPlant((current + dir + PLANTS.length) % PLANTS.length);
 
+// ---- Switching plants with a slide: arrows, keyboard and touch swipes ----
+const photo = dlg.querySelector(".pd__img");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+let sliding = false;
+
+function setPhoto(transform, opacity, transition) {
+  photo.style.transition = transition;
+  photo.style.transform = transform;
+  photo.style.opacity = opacity;
+}
+
+// dir = 1 -> next plant (current photo leaves to the left), -1 -> previous
+function slideTo(dir) {
+  if (sliding) return;
+  if (reduceMotion.matches) return step(dir);
+  sliding = true;
+  setPhoto(`translateX(${dir > 0 ? -35 : 35}%)`, "0", "transform 0.2s ease-in, opacity 0.2s ease-in");
+  setTimeout(() => {
+    step(dir);
+    setPhoto(`translateX(${dir > 0 ? 35 : -35}%)`, "0", "none");
+    void photo.offsetWidth;
+    setPhoto("", "", "transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.32s ease");
+    sliding = false;
+  }, 200);
+}
+
+// The photo follows the finger on a horizontal drag; vertical drags keep scrolling the panel.
+const panel = dlg.querySelector(".pd__panel");
+let touch = null;
+
+panel.addEventListener("touchstart", (e) => {
+  touch = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY, axis: null } : null;
+}, { passive: true });
+
+panel.addEventListener("touchmove", (e) => {
+  if (!touch || sliding) return;
+  const dx = e.touches[0].clientX - touch.x;
+  const dy = e.touches[0].clientY - touch.y;
+  if (!touch.axis) {
+    if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+    touch.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+  }
+  if (touch.axis === "x") setPhoto(`translateX(${dx * 0.6}px)`, String(1 - Math.min(Math.abs(dx) / 500, 0.4)), "none");
+}, { passive: true });
+
+function endTouch(e) {
+  const t = touch;
+  touch = null;
+  if (!t || t.axis !== "x" || sliding) return;
+  const dx = (e.changedTouches[0] || {}).clientX - t.x;
+  if (Math.abs(dx) > 60) slideTo(dx < 0 ? 1 : -1);
+  else setPhoto("", "", "transform 0.25s ease, opacity 0.25s ease"); // not far enough: snap back
+}
+panel.addEventListener("touchend", endTouch);
+panel.addEventListener("touchcancel", () => {
+  touch = null;
+  setPhoto("", "", "transform 0.25s ease, opacity 0.25s ease");
+});
+
 dlg.addEventListener("click", (e) => {
   if (e.target === dlg) return dlg.close(); // click on the dimmed backdrop
   const b = e.target.closest("button");
   if (!b) return;
   const p = PLANTS[current];
   if (b.matches("[data-close]")) dlg.close();
-  else if (b.matches("[data-prev]")) step(-1);
-  else if (b.matches("[data-next]")) step(1);
+  else if (b.matches("[data-prev]")) slideTo(-1);
+  else if (b.matches("[data-next]")) slideTo(1);
   else if (b.matches("[data-minus]")) { qty = Math.max(1, qty - 1); renderDialog(); }
   else if (b.matches("[data-plus]")) { qty = Math.min(20, qty + 1); renderDialog(); }
   else if (b.matches("[data-buy]")) {
@@ -134,8 +193,8 @@ dlg.addEventListener("click", (e) => {
 });
 
 dlg.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft") step(-1);
-  if (e.key === "ArrowRight") step(1);
+  if (e.key === "ArrowLeft") slideTo(-1);
+  if (e.key === "ArrowRight") slideTo(1);
 });
 
 dlg.addEventListener("close", () => {

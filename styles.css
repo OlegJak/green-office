@@ -582,7 +582,8 @@ body.no-scroll { overflow: hidden; }
   overflow: hidden;
   border-radius: 28px 0 0 28px;
 }
-.pd__img { width: 100%; height: 100%; object-fit: cover; }
+.pd__img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.pd__panel { touch-action: pan-y; }
 .pd__tag {
   position: absolute;
   top: 18px;
@@ -963,8 +964,8 @@ textarea.field { min-height: 116px; }
   .hero { padding-top: 10px; padding-bottom: 80px; }
   .hero__text { padding-top: 10px; }
   .hero__text br { display: none; }
-  .hero__card { margin: 150px auto 0; width: min(320px, 100%); }
-  .hero__plant { margin-top: -150px; }
+  .hero__card { margin: 170px auto 0; width: min(320px, 100%); }
+  .hero__plant { margin-top: -125px; }
   .about { row-gap: 22px; padding-bottom: 90px; }
   .stats { grid-template-rows: none; gap: 14px; }
   .stat { padding: 18px 22px; }

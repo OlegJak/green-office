@@ -27,9 +27,17 @@ body {
 }
 
 /* ---------- Background: fern photo + soft focus edges ---------- */
+/* Oversized on purpose: mobile Safari draws the page under the status bar and while its
+   toolbars collapse it shows more than the layout viewport. A plain `inset: 0` layer would
+   leave a flat band there that the content visibly slides into. Extending evenly up and down
+   keeps the photo centred. */
 .bg {
   position: fixed;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: -20vh;
+  height: 140vh;
+  height: calc(100lvh + 40vh);
   z-index: -2;
   background:
     radial-gradient(ellipse 80% 70% at 50% 40%, transparent, rgba(0, 0, 0, 0.35)),

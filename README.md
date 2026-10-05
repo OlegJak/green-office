@@ -1,5 +1,7 @@
 # Green Office
 
+**Live site:** https://olegjak.github.io/green-office/
+
 Landing page and shop for an office-greening company in Estonia: plant catalog with details dialog, cart page and checkout form. Glassmorphism design over a fern background.
 
 - Languages: English (default), Estonian, Russian. The switcher is in the header; the choice is remembered. A language can be forced with `?lang=et` / `?lang=ru`.
